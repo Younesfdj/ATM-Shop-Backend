@@ -1,3 +1,6 @@
-export const testService = () => {
-  return "everything is up and running!!";
+import { prismaClient } from "..";
+
+export const testService = async () => {
+  const test = await prismaClient.testtable.findMany();
+  return test;
 };
