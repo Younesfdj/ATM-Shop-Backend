@@ -3,7 +3,7 @@ import testRouter from "./routes/test.router";
 import "dotenv/config";
 import { PrismaClient } from "@prisma/client";
 import productRouter from "./routes/products.router";
-
+import errorHandler from "./middlewares/errors";
 const PORT = process.env.PORT || 3000;
 export const prismaClient = new PrismaClient({
   log: ["query"],
@@ -14,4 +14,5 @@ app.use(express.json());
 app.use("/api/v1", testRouter);
 app.use("/api/v1", productRouter);
 
+app.use(errorHandler);
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}...`));
