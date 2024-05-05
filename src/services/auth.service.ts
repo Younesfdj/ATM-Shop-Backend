@@ -67,32 +67,36 @@ const registerUserService = async (
  */
 
 const loginUserService = async (email: string, password: string) => {
-  const user = await prismaClient.user.findFirst({
-    where: {
-      UserEmail: email,
-    },
-  });
+  try {
+    const user = await prismaClient.user.findFirst({
+      where: {
+        UserEmail: email,
+      },
+    });
 
-  if (!user) return new BadRequestError("User not found", 1001);
+    if (!user) return new BadRequestError("User not found", 1001);
 
-  if (!comparePassword(password, user.UserPassword))
-    return new BadRequestError("Invalid password", 1003);
+    if (!comparePassword(password, user.UserPassword))
+      return new BadRequestError("Invalid password", 1003);
 
-  const token = generateToken({
-    UserId: user.UserId,
-    UserRole: user.UserRole,
-  });
-
-  return {
-    data: {
-      id: user.UserId,
-      UserEmail: user.UserEmail,
-      UserName: user.UserName,
-      UserPhone: user.UserPhone,
+    const token = generateToken({
+      UserId: user.UserId,
       UserRole: user.UserRole,
-    },
-    token,
-  };
+    });
+
+    return {
+      data: {
+        id: user.UserId,
+        UserEmail: user.UserEmail,
+        UserName: user.UserName,
+        UserPhone: user.UserPhone,
+        UserRole: user.UserRole,
+      },
+      token,
+    };
+  } catch (error) {
+    return new Error("Internal server error");
+  }
 };
 
 /**
