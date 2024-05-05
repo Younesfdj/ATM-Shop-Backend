@@ -4,7 +4,7 @@ import { BadRequestError } from "../errors/bad-request";
 /**
  * @description  Get Product by Id
  * @param ProductId  - number
- * @returns  Error | BadRequestError | object
+ * @returns  Error | BadRequestError | Product
  */
 
 export const getProductService = async (ProductId: number) => {
@@ -34,7 +34,7 @@ export const getProductService = async (ProductId: number) => {
 
 /**
  * @description  Get Products
- * @returns  Error | BadRequestError | object
+ * @returns  Error | BadRequestError | Product
  */
 
 export const getProductsService = async () => {
@@ -49,7 +49,7 @@ export const getProductsService = async () => {
 /**
  * @description  Get Products
  * @param newProduct  - Product
- * @returns  Error | BadRequestError | object
+ * @returns  Error | BadRequestError | Product
  */
 
 export const addProductService = async (newProduct: Product) => {
@@ -83,7 +83,7 @@ export const addProductService = async (newProduct: Product) => {
  * @description  Get Products
  * @param ProductId  - number
  * @param newProduct  - Product
- * @returns  Error | BadRequestError | object
+ * @returns  Error | BadRequestError | Product
  */
 
 export const updateProductService = async (
@@ -125,7 +125,7 @@ export const updateProductService = async (
 /**
  * @description  Get Products
  * @param ProductId  - number
- * @returns  Error | BadRequestError | object
+ * @returns  Error | BadRequestError | Product
  */
 
 export const deleteProductService = async (ProductId: number) => {
