@@ -1,5 +1,12 @@
 import { prismaClient } from "..";
 import { BadRequestError } from "../errors/bad-request";
+
+/**
+ * @description  Get Product by Id
+ * @param ProductId  - number
+ * @returns  Error | BadRequestError | object
+ */
+
 export const getProductService = async (ProductId: number) => {
   try {
     const product = await prismaClient.product.findUnique({
@@ -25,6 +32,11 @@ export const getProductService = async (ProductId: number) => {
   }
 };
 
+/**
+ * @description  Get Products
+ * @returns  Error | BadRequestError | object
+ */
+
 export const getProductsService = async () => {
   try {
     const products = await prismaClient.product.findMany();
@@ -33,6 +45,12 @@ export const getProductsService = async () => {
     return new Error("Internal Server Error");
   }
 };
+
+/**
+ * @description  Get Products
+ * @param newProduct  - Product
+ * @returns  Error | BadRequestError | object
+ */
 
 export const addProductService = async (newProduct: Product) => {
   try {
@@ -60,6 +78,13 @@ export const addProductService = async (newProduct: Product) => {
     return new Error("Internal Server Error");
   }
 };
+
+/**
+ * @description  Get Products
+ * @param ProductId  - number
+ * @param newProduct  - Product
+ * @returns  Error | BadRequestError | object
+ */
 
 export const updateProductService = async (
   ProductId: number,
@@ -96,6 +121,12 @@ export const updateProductService = async (
     return new Error("Internal Server Error");
   }
 };
+
+/**
+ * @description  Get Products
+ * @param ProductId  - number
+ * @returns  Error | BadRequestError | object
+ */
 
 export const deleteProductService = async (ProductId: number) => {
   try {
