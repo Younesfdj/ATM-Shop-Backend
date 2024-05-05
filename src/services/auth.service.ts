@@ -1,11 +1,25 @@
+import { $Enums } from "@prisma/client";
 import { prismaClient } from "..";
 import { BadRequestError } from "../errors/bad-request";
-import { generateToken, verifyToken } from "../utils/jwt";
+import { generateToken } from "../utils/jwt";
+import { comparePassword, hashPassword } from "../utils/password";
+
+/**
+ * @description  Register a user
+ * @param email  - String
+ * @param password - String
+ * @param name - String
+ * @param phone - String
+ * @param role - "USER" | "ADMIN
+ * @returns  Error | BadRequestError | object
+ */
+
 const registerUserService = async (
   UserEmail: string,
   UserName: string,
   UserPassword: string,
-  UserPhone: string
+  UserPhone: string,
+  UserRole: $Enums.Role = "USER"
 ) => {
   try {
     const userExist = await prismaClient.user.findFirst({
@@ -20,10 +34,12 @@ const registerUserService = async (
       data: {
         UserEmail,
         UserName,
-        UserPassword,
+        UserPassword: hashPassword(UserPassword),
         UserPhone,
+        UserRole,
       },
     });
+    console.log();
     const token = generateToken({
       UserId: result.UserId,
       UserRole: result.UserRole,
@@ -43,25 +59,64 @@ const registerUserService = async (
   }
 };
 
+/**
+ * @description  Login a user
+ * @param email  - String
+ * @param password - String
+ * @returns  Error | BadRequestError | object
+ */
+
 const loginUserService = async (email: string, password: string) => {
-  console.log(email, password);
+  const user = await prismaClient.user.findFirst({
+    where: {
+      UserEmail: email,
+    },
+  });
+
+  if (!user) return new BadRequestError("User not found", 1001);
+
+  if (!comparePassword(password, user.UserPassword))
+    return new BadRequestError("Invalid password", 1003);
+
+  const token = generateToken({
+    UserId: user.UserId,
+    UserRole: user.UserRole,
+  });
+
+  return {
+    data: {
+      id: user.UserId,
+      UserEmail: user.UserEmail,
+      UserName: user.UserName,
+      UserPhone: user.UserPhone,
+      UserRole: user.UserRole,
+    },
+    token,
+  };
 };
+
+/**
+ * @description  Register a user
+ * @param email  - String
+ * @param password - String
+ * @param name - String
+ * @param phone - String
+ * @returns  Error | BadRequestError | object
+ */
+
 const registerAdminService = async (
   UserEmail: string,
   UserName: string,
   UserPassword: string,
   UserPhone: string
 ) => {
-  const result = await prismaClient.user.create({
-    data: {
-      UserEmail,
-      UserName,
-      UserPassword,
-      UserPhone,
-      UserRole: "ADMIN",
-    },
-  });
-  return result;
+  return registerUserService(
+    UserEmail,
+    UserName,
+    UserPassword,
+    UserPhone,
+    "ADMIN"
+  );
 };
 
 export { registerUserService, loginUserService, registerAdminService };
