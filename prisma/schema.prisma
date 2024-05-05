@@ -74,12 +74,18 @@ model OrderDetail {
 model User{
   UserId Int @id @default(autoincrement())
   UserName String
-  UserEmail String
+  UserEmail String @unique
   UserPassword String
   UserPhone String
-  UserRole String
+  UserRole Role @default(USER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+
   Orders Order[]
+}
+
+enum Role {
+  USER
+  ADMIN
 }
