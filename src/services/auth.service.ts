@@ -3,7 +3,7 @@ import { prismaClient } from "../config/prisma";
 import { BadRequestError } from "../errors/bad-request";
 import { generateToken } from "../utils/jwt";
 import { comparePassword, hashPassword } from "../utils/password";
-import { log } from "../utils/logger";
+import { InternalError } from "../errors/internal-error";
 
 /**
  * @description  Register a user
@@ -54,9 +54,8 @@ const registerUserService = async (
       },
       token,
     };
-  } catch (error) {
-    log.error(error);
-    return new Error("Internal server error");
+  } catch (error: any) {
+    return new InternalError("Something went wrong", 1007, error);
   }
 };
 
@@ -95,9 +94,8 @@ const loginUserService = async (email: string, password: string) => {
       },
       token,
     };
-  } catch (error) {
-    log.error(error);
-    return new Error("Internal server error");
+  } catch (error: any) {
+    return new InternalError("Something went wrong", 1007, error);
   }
 };
 

@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
 import { log } from "../utils/logger";
 import { UnprocessedEntityError } from "../errors/unprocessed-entity";
+import { InternalError } from "../errors/internal-error";
 const errorHandler = (
   err: Error,
   req: Request,
@@ -10,6 +11,13 @@ const errorHandler = (
   next: NextFunction
 ) => {
   log.error(err);
+  if (err instanceof InternalError) {
+    return res.status(err.statusCode).json({
+      message: err.message,
+      errorCode: err.errorCode,
+      error: err.error.message,
+    });
+  }
   if (err instanceof UnprocessedEntityError) {
     return res
       .status(err.statusCode)
