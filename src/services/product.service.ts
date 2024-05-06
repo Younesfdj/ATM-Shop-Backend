@@ -47,7 +47,7 @@ export const getProductsService = async () => {
 };
 
 /**
- * @description  Get Products
+ * @description  Add a Product
  * @param newProduct  - Product
  * @returns  Error | BadRequestError | Product
  */
@@ -81,7 +81,7 @@ export const addProductService = async (newProduct: Product) => {
 };
 
 /**
- * @description  Get Products
+ * @description  Update a Product
  * @param ProductId  - number
  * @param newProduct  - Product
  * @returns  Error | BadRequestError | Product
@@ -124,7 +124,7 @@ export const updateProductService = async (
 };
 
 /**
- * @description  Get Products
+ * @description  Delete a Product
  * @param ProductId  - number
  * @returns  Error | BadRequestError | Product
  */
