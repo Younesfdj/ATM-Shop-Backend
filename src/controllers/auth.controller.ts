@@ -11,15 +11,20 @@ const registerUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { email, name, phone, password } = req.body;
-  const result = await registerUserService(email, name, password, phone);
+  const { UserEmail, UserName, UserPassword, UserPhone } = req.body;
+  const result = await registerUserService(
+    UserEmail,
+    UserName,
+    UserPassword,
+    UserPhone
+  );
   if (result instanceof Error) return next(result);
 
   res.status(StatusCodes.ACCEPTED).json(result);
 };
 const loginUser = async (req: Request, res: Response, next: NextFunction) => {
-  const { email, password } = req.body;
-  const result = await loginUserService(email, password);
+  const { UserEmail, UserPassword } = req.body;
+  const result = await loginUserService(UserEmail, UserPassword);
 
   if (result instanceof Error) return next(result);
 
@@ -30,8 +35,13 @@ const registerAdmin = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { email, name, phone, password } = req.body;
-  const result = await registerAdminService(email, name, password, phone);
+  const { UserEmail, UserName, UserPassword, UserPhone } = req.body;
+  const result = await registerAdminService(
+    UserEmail,
+    UserName,
+    UserPassword,
+    UserPhone
+  );
   if (result instanceof Error) return next(result);
 
   res.status(StatusCodes.ACCEPTED).json(result);

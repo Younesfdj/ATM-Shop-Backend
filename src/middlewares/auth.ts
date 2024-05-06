@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { BadRequestError } from "../errors/bad-request";
-import { prismaClient } from "..";
+import { prismaClient } from "../config/prisma";
 import { verifyToken } from "../utils/jwt";
 import { MyRequest } from "../types/Express";
 import { User } from "@prisma/client";

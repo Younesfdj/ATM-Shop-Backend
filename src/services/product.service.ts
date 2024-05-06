@@ -1,4 +1,4 @@
-import { prismaClient } from "..";
+import { prismaClient } from "../config/prisma";
 import { BadRequestError } from "../errors/bad-request";
 
 /**

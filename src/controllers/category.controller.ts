@@ -7,7 +7,7 @@ import {
   addCategoryService,
 } from "../services/category.service";
 import { StatusCodes } from "http-status-codes";
-import { log } from "..";
+import { log } from "../utils/logger";
 export const getCategory = async (
   req: Request,
   res: Response,

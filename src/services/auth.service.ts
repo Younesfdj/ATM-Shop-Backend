@@ -1,8 +1,9 @@
 import { $Enums } from "@prisma/client";
-import { prismaClient } from "..";
+import { prismaClient } from "../config/prisma";
 import { BadRequestError } from "../errors/bad-request";
 import { generateToken } from "../utils/jwt";
 import { comparePassword, hashPassword } from "../utils/password";
+import { log } from "../utils/logger";
 
 /**
  * @description  Register a user
@@ -39,7 +40,6 @@ const registerUserService = async (
         UserRole,
       },
     });
-    console.log();
     const token = generateToken({
       UserId: result.UserId,
       UserRole: result.UserRole,
@@ -55,6 +55,7 @@ const registerUserService = async (
       token,
     };
   } catch (error) {
+    log.error(error);
     return new Error("Internal server error");
   }
 };
@@ -95,6 +96,7 @@ const loginUserService = async (email: string, password: string) => {
       token,
     };
   } catch (error) {
+    log.error(error);
     return new Error("Internal server error");
   }
 };

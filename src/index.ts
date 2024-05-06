@@ -1,6 +1,4 @@
 import express from "express";
-import { PrismaClient } from "@prisma/client";
-import { Logger, ILogObj } from "tslog";
 
 import testRouter from "./routes/test.router";
 import authRouter from "./routes/auth.router";
@@ -10,11 +8,6 @@ import errorHandler from "./middlewares/errors";
 import "dotenv/config";
 
 const PORT = process.env.PORT || 3000;
-const NODE_ENV = process.env.NODE_ENV || "DEV";
-export const prismaClient = new PrismaClient({});
-export const log: Logger<ILogObj> = new Logger({
-  minLevel: NODE_ENV === "PROD" ? 3 : 0,
-});
 
 const app = express();
 app.use(express.json());

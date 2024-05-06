@@ -1,4 +1,4 @@
-import { prismaClient } from "..";
+import { prismaClient } from "../config/prisma";
 
 export const testService = async () => {
   const t = await prismaClient.testtable.create({
