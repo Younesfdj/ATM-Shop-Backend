@@ -75,6 +75,7 @@ export const addProductService = async (newProduct: Product) => {
       ProductImagePath: product.ProductImagePath,
     };
   } catch (error) {
+    console.log(error);
     return new Error("Internal Server Error");
   }
 };
