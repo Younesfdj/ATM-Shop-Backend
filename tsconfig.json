@@ -18,5 +18,5 @@
     "entryPoints": ["src/index.ts"],
     "out": "docs"
   },
-  "include": ["src", "src/test"]
+  "include": ["src", "src/test", "src/types"]
 }

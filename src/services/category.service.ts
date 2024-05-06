@@ -1,6 +1,7 @@
 import { prismaClient } from "../config/prisma";
 import { BadRequestError } from "../errors/bad-request";
-
+import { Category } from "../types/Category";
+import { InternalError } from "../errors/internal-error";
 /**
  * @description  Get category by Id
  * @param categoryId  - number
@@ -21,8 +22,8 @@ export const getCategoryService = async (CategoryId: number) => {
     return {
       categoryName: category.CategoryName,
     };
-  } catch (error) {
-    return new Error("Internal Server Error");
+  } catch (error: any) {
+    return new InternalError("Something went wrong", 1007, error);
   }
 };
 
@@ -35,8 +36,8 @@ export const getCategoriesService = async () => {
   try {
     const categories = await prismaClient.category.findMany();
     return categories;
-  } catch (error) {
-    return new Error("Internal Server Error");
+  } catch (error: any) {
+    return new InternalError("Something went wrong", 1007, error);
   }
 };
 
@@ -58,9 +59,8 @@ export const addCategoryService = async (newcategory: Category) => {
       categoryId: category.CategoryId,
       categoryName: category.CategoryName,
     };
-  } catch (error) {
-    console.log(error);
-    return new Error("Internal Server Error");
+  } catch (error: any) {
+    return new InternalError("Something went wrong", 1007, error);
   }
 };
 
@@ -76,6 +76,15 @@ export const updateCategoryService = async (
   newcategory: Category
 ) => {
   try {
+    const categoryExists = await prismaClient.category.findUnique({
+      where: {
+        CategoryId,
+      },
+    });
+    if (!categoryExists) {
+      return new BadRequestError("category not found", 2001);
+    }
+
     const category = await prismaClient.category.update({
       where: {
         CategoryId,
@@ -84,16 +93,13 @@ export const updateCategoryService = async (
         CategoryName: newcategory.CategoryName,
       },
     });
-    if (!category) {
-      return new BadRequestError("category not found", 2001);
-    }
 
     return {
       CategoryId: category.CategoryId,
       CategoryName: category.CategoryName,
     };
-  } catch (error) {
-    return new Error("Internal Server Error");
+  } catch (error: any) {
+    return new InternalError("Something went wrong", 1007, error);
   }
 };
 
@@ -105,20 +111,26 @@ export const updateCategoryService = async (
 
 export const deleteCategoryService = async (CategoryId: number) => {
   try {
+    const categoryExists = await prismaClient.category.findUnique({
+      where: {
+        CategoryId,
+      },
+    });
+    if (!categoryExists) {
+      return new BadRequestError("category not found", 2001);
+    }
+
     const category = await prismaClient.category.delete({
       where: {
         CategoryId,
       },
     });
-    if (!category) {
-      return new BadRequestError("category not found", 2001);
-    }
 
     return {
       CategoryId: category.CategoryId,
       CategoryName: category.CategoryName,
     };
-  } catch (error) {
-    return new Error("Internal Server Error");
+  } catch (error: any) {
+    return new InternalError("Something went wrong", 1007, error);
   }
 };
