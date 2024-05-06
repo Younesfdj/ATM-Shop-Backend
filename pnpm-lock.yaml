@@ -29,6 +29,9 @@ dependencies:
   rimraf:
     specifier: ^5.0.5
     version: 5.0.5
+  tslog:
+    specifier: ^4.9.2
+    version: 4.9.2
 
 devDependencies:
   '@types/bcryptjs':
@@ -1331,6 +1334,11 @@ packages:
 
   /tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
+    dev: false
+
+  /tslog@4.9.2:
+    resolution: {integrity: sha512-wBM+LRJoNl34Bdu8mYEFxpvmOUedpNUwMNQB/NcuPIZKwdDde6xLHUev3bBjXQU7gdurX++X/YE7gLH8eXYsiQ==}
+    engines: {node: '>=16'}
     dev: false
 
   /type-is@1.6.18:

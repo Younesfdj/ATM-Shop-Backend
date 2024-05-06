@@ -1,14 +1,14 @@
 import { HttpError } from "../errors/root";
 import { Request, Response, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
+import { log } from "..";
 const errorHandler = (
   err: Error,
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  console.log(err);
-
+  log.error(err);
   if (err instanceof HttpError) {
     return res
       .status(err.statusCode)

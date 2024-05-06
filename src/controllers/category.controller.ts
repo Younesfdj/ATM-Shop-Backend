@@ -7,6 +7,7 @@ import {
   addCategoryService,
 } from "../services/category.service";
 import { StatusCodes } from "http-status-codes";
+import { log } from "..";
 export const getCategory = async (
   req: Request,
   res: Response,
@@ -15,6 +16,7 @@ export const getCategory = async (
   const { id } = req.params;
   const result = await getCategoryService(parseInt(id));
   if (result instanceof Error) return next(result);
+  log.info("Category fetched successfully \n", result);
   res.status(StatusCodes.OK).json(result);
 };
 
