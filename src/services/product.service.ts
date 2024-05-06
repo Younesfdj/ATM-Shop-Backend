@@ -1,5 +1,7 @@
+import { InternalError } from "../errors/internal-error";
 import { prismaClient } from "../config/prisma";
 import { BadRequestError } from "../errors/bad-request";
+import { Product } from "../types/Product";
 
 /**
  * @description  Get Product by Id
@@ -27,8 +29,8 @@ export const getProductService = async (ProductId: number) => {
       ProductCategoryId: product.ProductCategoryId,
       ProductImagePath: product.ProductImagePath,
     };
-  } catch (error) {
-    return new Error("Internal Server Error");
+  } catch (error: any) {
+    return new InternalError("Something went wrong", 1007, error);
   }
 };
 
@@ -41,8 +43,8 @@ export const getProductsService = async () => {
   try {
     const products = await prismaClient.product.findMany();
     return products;
-  } catch (error) {
-    return new Error("Internal Server Error");
+  } catch (error: any) {
+    return new InternalError("Something went wrong", 1007, error);
   }
 };
 
@@ -92,6 +94,15 @@ export const updateProductService = async (
   newProduct: Product
 ) => {
   try {
+    const productExists = await prismaClient.product.findUnique({
+      where: {
+        ProductId,
+      },
+    });
+    if (!productExists) {
+      return new BadRequestError("Product not found", 2001);
+    }
+
     const product = await prismaClient.product.update({
       where: {
         ProductId,
@@ -105,9 +116,6 @@ export const updateProductService = async (
         ProductImagePath: newProduct.ProductImagePath,
       },
     });
-    if (!product) {
-      return new BadRequestError("Product not found", 2001);
-    }
 
     return {
       ProductId: product.ProductId,
@@ -118,8 +126,8 @@ export const updateProductService = async (
       ProductCategoryId: product.ProductCategoryId,
       ProductImagePath: product.ProductImagePath,
     };
-  } catch (error) {
-    return new Error("Internal Server Error");
+  } catch (error: any) {
+    return new InternalError("Something went wrong", 1007, error);
   }
 };
 
@@ -131,14 +139,20 @@ export const updateProductService = async (
 
 export const deleteProductService = async (ProductId: number) => {
   try {
+    const productExists = await prismaClient.product.findUnique({
+      where: {
+        ProductId,
+      },
+    });
+    if (!productExists) {
+      return new BadRequestError("Product not found", 2001);
+    }
+
     const product = await prismaClient.product.delete({
       where: {
         ProductId,
       },
     });
-    if (!product) {
-      return new BadRequestError("Product not found", 2001);
-    }
 
     return {
       ProductId: product.ProductId,
@@ -149,7 +163,7 @@ export const deleteProductService = async (ProductId: number) => {
       ProductCategoryId: product.ProductCategoryId,
       ProductImagePath: product.ProductImagePath,
     };
-  } catch (error) {
-    return new Error("Internal Server Error");
+  } catch (error: any) {
+    return new InternalError("Something went wrong", 1007, error);
   }
 };

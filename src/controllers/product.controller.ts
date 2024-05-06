@@ -7,12 +7,19 @@ import {
   addProductService,
 } from "../services/product.service";
 import { StatusCodes } from "http-status-codes";
+import { ProductSchema } from "../schema/ProductSchema";
+import { UnprocessedEntityError } from "../errors/unprocessed-entity";
+
 export const getProduct = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   const { id } = req.params;
+  const { error } = ProductSchema.shape.ProductId.safeParse(parseInt(id));
+  if (error) {
+    return next(new UnprocessedEntityError(error.message, 1006));
+  }
   const result = await getProductService(parseInt(id));
   if (result instanceof Error) return next(result);
   res.status(StatusCodes.OK).json(result);
@@ -45,6 +52,10 @@ export const updateProduct = async (
   next: NextFunction
 ) => {
   const { id } = req.params;
+  const { error } = ProductSchema.shape.ProductId.safeParse(parseInt(id));
+  if (error) {
+    return next(new UnprocessedEntityError(error.message, 1006));
+  }
   const newProduct = req.body;
   const result = await updateProductService(parseInt(id), newProduct);
   if (result instanceof Error) return next(result);
@@ -57,6 +68,10 @@ export const deleteProduct = async (
   next: NextFunction
 ) => {
   const { id } = req.params;
+  const { error } = ProductSchema.shape.ProductId.safeParse(parseInt(id));
+  if (error) {
+    return next(new UnprocessedEntityError(error.message, 1006));
+  }
   const result = await deleteProductService(parseInt(id));
   if (result instanceof Error) return next(result);
   res.status(StatusCodes.OK).json({ message: "Product deleted successfully" });
