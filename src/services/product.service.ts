@@ -2,6 +2,7 @@ import { InternalError } from "../errors/internal-error";
 import { prismaClient } from "../config/prisma";
 import { BadRequestError } from "../errors/bad-request";
 import { Product } from "../types/Product";
+import { getCategoryService } from "./category.service";
 
 /**
  * @description  Get Product by Id
@@ -56,6 +57,13 @@ export const getProductsService = async () => {
 
 export const addProductService = async (newProduct: Product) => {
   try {
+    const categoryExists = await getCategoryService(
+      newProduct.ProductCategoryId
+    );
+    if (categoryExists instanceof BadRequestError) {
+      return categoryExists;
+    }
+
     const product = await prismaClient.product.create({
       data: {
         ProductName: newProduct.ProductName,
