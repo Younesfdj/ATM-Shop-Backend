@@ -11,20 +11,8 @@ import { CategoryValidator } from "../validators/CategoryValidator";
 
 const categoryRouter = Router();
 
-categoryRouter.get(
-  "/categories",
-  checkLogIn,
-  isLoggedIn,
-  isAdmin,
-  getCategories
-);
-categoryRouter.get(
-  "/category/:id",
-  checkLogIn,
-  isLoggedIn,
-  isAdmin,
-  getCategory
-);
+categoryRouter.get("/categories", checkLogIn, getCategories);
+categoryRouter.get("/category/:id", checkLogIn, getCategory);
 categoryRouter.post(
   "/category",
   checkLogIn,
