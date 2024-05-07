@@ -1,0 +1,835 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "v1.0.0",
+    "title": "ATM Shop API Documentation"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000/",
+      "description": "Local server"
+    }
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "description": "Endpoint to register a new user",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "UserId": {
+                          "type": "number",
+                          "example": 1
+                        },
+                        "UserEmail": {
+                          "type": "string",
+                          "example": "example@example.com"
+                        },
+                        "UserName": {
+                          "type": "string",
+                          "example": "John Doe"
+                        },
+                        "UserPhone": {
+                          "type": "string",
+                          "example": "0552038398"
+                        },
+                        "UserRole": {
+                          "type": "string",
+                          "example": "USER"
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyS..."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User already exists"
+                    },
+                    "errorCode": {
+                      "type": "number",
+                      "example": "1002"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid email"
+                    },
+                    "errorCode": {
+                      "type": "number",
+                      "example": "1006"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    },
+                    "errorCode": {
+                      "type": "number",
+                      "example": "1007"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "UserEmail": {
+                    "type": "string",
+                    "example": "example@example.com"
+                  },
+                  "UserPassword": {
+                    "type": "string",
+                    "example": "password123"
+                  },
+                  "UserName": {
+                    "type": "string",
+                    "example": "John Doe"
+                  },
+                  "UserPhone": {
+                    "type": "string",
+                    "example": "0552038398"
+                  }
+                },
+                "required": [
+                  "UserEmail",
+                  "UserPassword",
+                  "UserName",
+                  "UserPhone"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "description": "Endpoint to log in",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "UserId": {
+                          "type": "number",
+                          "example": 1
+                        },
+                        "UserEmail": {
+                          "type": "string",
+                          "example": "example@example.com"
+                        },
+                        "UserName": {
+                          "type": "string",
+                          "example": "John Doe"
+                        },
+                        "UserPhone": {
+                          "type": "string",
+                          "example": "0552038398"
+                        },
+                        "UserRole": {
+                          "type": "string",
+                          "example": "USER"
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyS..."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User not found | Invalid password"
+                    },
+                    "errorCode": {
+                      "type": "number",
+                      "example": "1001 | 1003"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid email"
+                    },
+                    "errorCode": {
+                      "type": "number",
+                      "example": "1006"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    },
+                    "errorCode": {
+                      "type": "number",
+                      "example": "1007"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "UserEmail": {
+                    "type": "string",
+                    "example": "example@example.com"
+                  },
+                  "UserPassword": {
+                    "type": "string",
+                    "example": "password123"
+                  }
+                },
+                "required": ["UserEmail", "UserPassword"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "tags": ["Products"],
+        "description": "Get all products",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "ProductId": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "ProductName": {
+                        "type": "string",
+                        "example": "Product 1"
+                      },
+                      "ProductPrice": {
+                        "type": "number",
+                        "example": 100
+                      },
+                      "ProductDesc": {
+                        "type": "string",
+                        "example": "Product 1 description"
+                      },
+                      "ProductSKU": {
+                        "type": "string",
+                        "example": "SKU123"
+                      },
+                      "ProductCategoryId": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "ProductImagePath": {
+                        "type": "string",
+                        "example": "http://example.com/image.jpg"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Something went wrong"
+                    },
+                    "errorCode": {
+                      "type": "number",
+                      "example": "1007"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/product/id": {
+      "get": {
+        "tags": ["Products"],
+        "description": "Get details of a specific product by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ProductId": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "ProductName": {
+                      "type": "string",
+                      "example": "Product 1"
+                    },
+                    "ProductPrice": {
+                      "type": "number",
+                      "example": 100
+                    },
+                    "ProductDesc": {
+                      "type": "string",
+                      "example": "Product 1 description"
+                    },
+                    "ProductSKU": {
+                      "type": "string",
+                      "example": "SKU123"
+                    },
+                    "ProductCategoryId": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "ProductImagePath": {
+                      "type": "string",
+                      "example": "http://example.com/image.jpg"
+                    }
+                  }
+                }
+              }
+            }
+          },
+
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Product not found"
+                    },
+                    "errorCode": {
+                      "type": "number",
+                      "example": "2001"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Something went wrong"
+                    },
+                    "errorCode": {
+                      "type": "number",
+                      "example": "1007"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/product": {
+      "post": {
+        "tags": ["Products"],
+        "description": "Add a new product",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ProductId": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "ProductName": {
+                      "type": "string",
+                      "example": "Product 1"
+                    },
+                    "ProductPrice": {
+                      "type": "number",
+                      "example": 100
+                    },
+                    "ProductDesc": {
+                      "type": "string",
+                      "example": "Product 1 description"
+                    },
+                    "ProductSKU": {
+                      "type": "string",
+                      "example": "SKU123"
+                    },
+                    "ProductCategoryId": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "ProductImagePath": {
+                      "type": "string",
+                      "example": "http://example.com/image.jpg"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid product data"
+                    },
+                    "errorCode": {
+                      "type": "number",
+                      "example": "1006"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Something went wrong"
+                    },
+                    "errorCode": {
+                      "type": "number",
+                      "example": "1007"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ProductName": {
+                    "type": "string",
+                    "example": "Product 1"
+                  },
+                  "ProductPrice": {
+                    "type": "number",
+                    "example": 100
+                  },
+                  "ProductDesc": {
+                    "type": "string",
+                    "example": "Product 1 description"
+                  },
+                  "ProductSKU": {
+                    "type": "string",
+                    "example": "SKU123"
+                  },
+                  "ProductCategoryId": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "ProductImagePath": {
+                    "type": "string",
+                    "example": "http://example.com/image.jpg"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/product/{id}": {
+      "put": {
+        "tags": ["Products"],
+        "description": "Update a product by ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ProductId": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "ProductName": {
+                      "type": "string",
+                      "example": "Product 1"
+                    },
+                    "ProductPrice": {
+                      "type": "number",
+                      "example": 100
+                    },
+                    "ProductDesc": {
+                      "type": "string",
+                      "example": "Product 1 description"
+                    },
+                    "ProductSKU": {
+                      "type": "string",
+                      "example": "SKU123"
+                    },
+                    "ProductCategoryId": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "ProductImagePath": {
+                      "type": "string",
+                      "example": "http://example.com/image.jpg"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid product data"
+                    },
+                    "errorCode": {
+                      "type": "number",
+                      "example": "1006"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Product not found"
+                    },
+                    "errorCode": {
+                      "type": "number",
+                      "example": "2001"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Something went wrong"
+                    },
+                    "errorCode": {
+                      "type": "number",
+                      "example": "1007"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/product/:id": {
+      "delete": {
+        "tags": ["Products"],
+        "description": "Delete a product by ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Product deleted successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid product ID"
+                    },
+                    "errorCode": {
+                      "type": "number",
+                      "example": "1006"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Product not found"
+                    },
+                    "errorCode": {
+                      "type": "number",
+                      "example": "2001"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Something went wrong"
+                    },
+                    "errorCode": {
+                      "type": "number",
+                      "example": "1007"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

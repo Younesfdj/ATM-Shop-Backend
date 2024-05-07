@@ -11,10 +11,10 @@ import { ProductValidator } from "../validators/ProductValidator";
 
 const productRouter = Router();
 
-productRouter.get("/", getProducts);
-productRouter.get("/:id", getProduct);
+productRouter.get("/products", getProducts);
+productRouter.get("/product/:id", getProduct);
 productRouter.post(
-  "/",
+  "/product",
   checkLogIn,
   isLoggedIn,
   isAdmin,
@@ -22,13 +22,19 @@ productRouter.post(
   addProduct
 );
 productRouter.put(
-  "/:id",
+  "/product/:id",
   checkLogIn,
   isLoggedIn,
   isAdmin,
   ProductValidator,
   updateProduct
 );
-productRouter.delete("/:id", checkLogIn, isLoggedIn, isAdmin, deleteProduct);
+productRouter.delete(
+  "/product/:id",
+  checkLogIn,
+  isLoggedIn,
+  isAdmin,
+  deleteProduct
+);
 
 export default productRouter;

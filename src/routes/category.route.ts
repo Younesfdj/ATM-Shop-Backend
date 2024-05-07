@@ -11,10 +11,22 @@ import { CategoryValidator } from "../validators/CategoryValidator";
 
 const categoryRouter = Router();
 
-categoryRouter.get("/", checkLogIn, isLoggedIn, isAdmin, getCategories);
-categoryRouter.get("/:id", checkLogIn, isLoggedIn, isAdmin, getCategory);
+categoryRouter.get(
+  "/categories",
+  checkLogIn,
+  isLoggedIn,
+  isAdmin,
+  getCategories
+);
+categoryRouter.get(
+  "/category/:id",
+  checkLogIn,
+  isLoggedIn,
+  isAdmin,
+  getCategory
+);
 categoryRouter.post(
-  "/",
+  "/category",
   checkLogIn,
   isLoggedIn,
   isAdmin,
@@ -22,13 +34,19 @@ categoryRouter.post(
   addCategory
 );
 categoryRouter.put(
-  "/:id",
+  "/category/:id",
   checkLogIn,
   isLoggedIn,
   isAdmin,
   CategoryValidator,
   updateCategory
 );
-categoryRouter.delete("/:id", checkLogIn, isLoggedIn, isAdmin, deleteCategory);
+categoryRouter.delete(
+  "/category/:id",
+  checkLogIn,
+  isLoggedIn,
+  isAdmin,
+  deleteCategory
+);
 
 export default categoryRouter;
