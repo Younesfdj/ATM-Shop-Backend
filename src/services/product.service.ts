@@ -3,6 +3,7 @@ import { prismaClient } from "../config/prisma";
 import { BadRequestError } from "../errors/bad-request";
 import { Product } from "../types/Product";
 import { getCategoryService } from "./category.service";
+import { log } from "../utils/logger";
 
 /**
  * @description  Get Product by Id
@@ -27,6 +28,7 @@ export const getProductService = async (ProductId: number) => {
       ProductDesc: product.ProductDesc,
       ProductPrice: product.ProductPrice,
       ProductSKU: product.ProductSKU,
+      ProductQuantity: product.ProductQuantity,
       ProductCategoryId: product.ProductCategoryId,
       ProductImagePath: product.ProductImagePath,
     };
@@ -57,6 +59,7 @@ export const getProductsService = async () => {
 
 export const addProductService = async (newProduct: Product) => {
   try {
+    log.debug("newProduct", newProduct);
     const categoryExists = await getCategoryService(
       newProduct.ProductCategoryId
     );
@@ -69,6 +72,7 @@ export const addProductService = async (newProduct: Product) => {
         ProductName: newProduct.ProductName,
         ProductDesc: newProduct.ProductDesc,
         ProductPrice: newProduct.ProductPrice,
+        ProductQuantity: newProduct.ProductQuantity,
         ProductSKU: newProduct.ProductSKU,
         ProductCategoryId: newProduct.ProductCategoryId,
         ProductImagePath: newProduct.ProductImagePath,
@@ -79,6 +83,7 @@ export const addProductService = async (newProduct: Product) => {
       ProductId: product.ProductId,
       ProductName: product.ProductName,
       ProductDesc: product.ProductDesc,
+      ProductQuantity: product.ProductQuantity,
       ProductPrice: product.ProductPrice,
       ProductSKU: product.ProductSKU,
       ProductCategoryId: product.ProductCategoryId,
@@ -119,6 +124,7 @@ export const updateProductService = async (
         ProductName: newProduct.ProductName,
         ProductDesc: newProduct.ProductDesc,
         ProductPrice: newProduct.ProductPrice,
+        ProductQuantity: newProduct.ProductQuantity,
         ProductSKU: newProduct.ProductSKU,
         ProductCategoryId: newProduct.ProductCategoryId,
         ProductImagePath: newProduct.ProductImagePath,
@@ -130,6 +136,7 @@ export const updateProductService = async (
       ProductName: product.ProductName,
       ProductDesc: product.ProductDesc,
       ProductPrice: product.ProductPrice,
+      ProductQuantity: product.ProductQuantity,
       ProductSKU: product.ProductSKU,
       ProductCategoryId: product.ProductCategoryId,
       ProductImagePath: product.ProductImagePath,
@@ -167,6 +174,7 @@ export const deleteProductService = async (ProductId: number) => {
       ProductName: product.ProductName,
       ProductDesc: product.ProductDesc,
       ProductPrice: product.ProductPrice,
+      ProductQuantity: product.ProductQuantity,
       ProductSKU: product.ProductSKU,
       ProductCategoryId: product.ProductCategoryId,
       ProductImagePath: product.ProductImagePath,

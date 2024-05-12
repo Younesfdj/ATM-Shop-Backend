@@ -19,10 +19,11 @@ model testtable{
 
 model Product {
   ProductId Int @id @default(autoincrement())
-  ProductSKU String
+  ProductSKU String @unique
   ProductName String
   ProductPrice Float
-  ProductCategoryId Int
+  ProductQuantity Int @default(1)
+  ProductCategoryId Int 
   ProductDesc String
   ProductImagePath String
   createdAt DateTime @default(now())

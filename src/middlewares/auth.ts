@@ -53,12 +53,12 @@ export const checkLogIn = async (
         },
       });
       if (!user) {
-        return new BadRequestError("User not found", 1001);
+        return next(new BadRequestError("User not found", 1001));
       }
       req.user = user;
     } catch (e) {
       res.clearCookie("token");
-      return new Error("Internal Server Error");
+      return next(new Error("Internal Server Error"));
     }
   }
   return next();
