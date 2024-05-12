@@ -51,7 +51,7 @@ model Order{
   OrderDate DateTime @default(now()) 
   OrderCity String 
   OrderAdress String
-  OrderStatus String
+  OrderStatus OrderStatus @default(PENDING)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt 
 
@@ -88,4 +88,9 @@ model User{
 enum Role {
   USER
   ADMIN
+}
+enum OrderStatus {
+  PENDING
+  SHIPPING
+  DELIVERED
 }

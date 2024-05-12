@@ -1,6 +1,7 @@
 import { Application } from "express";
 import authRouter from "./auth.router";
 import productRouter from "./products.router";
+import orderRouter from "./order.router";
 import categoryRouter from "./category.route";
 import testRouter from "./test.router";
 import swaggerUi from "swagger-ui-express";
@@ -9,6 +10,7 @@ export default function setRouters(app: Application) {
   app.use("/auth", authRouter);
   app.use("/", productRouter);
   app.use("/", categoryRouter);
+  app.use("/", orderRouter);
   app.use("/test", testRouter);
   app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 }
