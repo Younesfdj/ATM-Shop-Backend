@@ -44,7 +44,7 @@ export const checkLogIn = async (
     try {
       const payload = verifyToken(token);
       if (!payload || !payload.UserId)
-        return new BadRequestError("Invalid token", 1004);
+        return next(new BadRequestError("Invalid token", 1004));
       const { UserId } = payload;
 
       const user = await prismaClient.user.findUnique({
