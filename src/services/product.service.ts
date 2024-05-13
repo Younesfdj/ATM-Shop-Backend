@@ -59,7 +59,6 @@ export const getProductsService = async () => {
 
 export const addProductService = async (newProduct: Product) => {
   try {
-    log.debug("newProduct", newProduct);
     const categoryExists = await getCategoryService(
       newProduct.ProductCategoryId
     );
@@ -90,8 +89,7 @@ export const addProductService = async (newProduct: Product) => {
       ProductImagePath: product.ProductImagePath,
     };
   } catch (error) {
-    console.log(error);
-    return new Error("Internal Server Error");
+    return new InternalError("Something went wrong", 1007, error);
   }
 };
 

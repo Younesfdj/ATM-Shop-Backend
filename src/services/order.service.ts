@@ -18,7 +18,7 @@ export const getOrderService = async (OrderId: number) => {
       },
     });
     if (!order) {
-      return new BadRequestError("Order not found", 1001);
+      return new BadRequestError("Order not found", 4001);
     }
     return order;
   } catch (error: any) {
@@ -78,7 +78,7 @@ export const addOrderService = async (newOrder: Order, userId: number) => {
       OrderStatus: order.OrderStatus,
     };
   } catch (error) {
-    return new Error("Internal Server Error");
+    return new InternalError("Something went wrong", 1007, error);
   }
 };
 
@@ -110,7 +110,7 @@ export const deleteOrderService = async (OrderId: number) => {
       },
     });
     if (!orderExists) {
-      return new BadRequestError("Order not found", 2001);
+      return new BadRequestError("Order not found", 4001);
     }
     const order = await prismaClient.order.delete({
       where: {

@@ -3,6 +3,8 @@ import { prismaClient } from "../config/prisma";
 import { BadRequestError } from "../errors/bad-request";
 import { OrderDetail } from "../types/OrderDetail";
 import { log } from "../utils/logger";
+import { getProductService, updateProductService } from "./product.service";
+import { getOrderService } from "./order.service";
 
 /**
  * @description  Get Order Detail by Id
@@ -12,6 +14,15 @@ import { log } from "../utils/logger";
 
 export const getOrderDetailService = async (DetailId: number) => {
   try {
+    const orderDetail = await prismaClient.orderDetail.findUnique({
+      where: {
+        DetailId: DetailId,
+      },
+    });
+    if (!orderDetail) {
+      return new BadRequestError("Order Detail not found", 5001);
+    }
+    return orderDetail;
   } catch (error: any) {
     return new InternalError("Something went wrong", 1007, error);
   }
@@ -24,6 +35,8 @@ export const getOrderDetailService = async (DetailId: number) => {
 
 export const getOrdersDetailService = async () => {
   try {
+    const ordersDetail = await prismaClient.orderDetail.findMany();
+    return ordersDetail;
   } catch (error: any) {
     return new InternalError("Something went wrong", 1007, error);
   }
@@ -35,13 +48,46 @@ export const getOrdersDetailService = async () => {
  * @returns  Error | BadRequestError | OrderDetail
  */
 
-export const addOrderDetailService = async (
-  newOrderDetail: OrderDetail,
-  userId: number
-) => {
+export const addOrderDetailService = async (newOrderDetail: OrderDetail) => {
   try {
+    const orderExits = await getOrderService(newOrderDetail.DetailOrderId);
+    if (orderExits instanceof Error) {
+      return orderExits;
+    }
+    const productExists = await getProductService(
+      newOrderDetail.DetailProductId
+    );
+    if (productExists instanceof Error) {
+      return productExists;
+    } else if (productExists.ProductQuantity < newOrderDetail.DetailQuantity) {
+      return new BadRequestError("Product out of stock", 2003);
+    }
+
+    const updatedProduct = await updateProductService(productExists.ProductId, {
+      ...productExists,
+      ProductQuantity:
+        productExists.ProductQuantity - newOrderDetail.DetailQuantity,
+    });
+
+    if (updatedProduct instanceof Error) {
+      return updatedProduct;
+    }
+
+    const orderDetail = await prismaClient.orderDetail.create({
+      data: {
+        DetailOrderId: newOrderDetail.DetailOrderId,
+        DetailProductId: newOrderDetail.DetailProductId,
+        DetailQuantity: newOrderDetail.DetailQuantity,
+      },
+    });
+    return {
+      DetailId: orderDetail.DetailId,
+      DetailOrderId: orderDetail.DetailOrderId,
+      DetailProductId: orderDetail.DetailProductId,
+      DetailQuantity: orderDetail.DetailQuantity,
+    };
   } catch (error) {
-    return new Error("Internal Server Error");
+    return new InternalError("Something went wrong", 1007, error);
   }
 };
 
@@ -70,6 +116,20 @@ export const updateOrderDetailService = async (
 
 export const deleteOrderDetailService = async (DetailId: number) => {
   try {
+    const orderDetail = await prismaClient.orderDetail.findUnique({
+      where: {
+        DetailId: DetailId,
+      },
+    });
+    if (!orderDetail) {
+      return new BadRequestError("Order Detail not found", 5001);
+    }
+    await prismaClient.orderDetail.delete({
+      where: {
+        DetailId: DetailId,
+      },
+    });
+    return orderDetail;
   } catch (error: any) {
     return new InternalError("Something went wrong", 1007, error);
   }

@@ -38,15 +38,12 @@ export const getOrdersDetail = async (
 };
 
 export const addOrderDetail = async (
-  req: MyRequest<null | User>,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
   const newOrder = req.body;
-  const result = await addOrderDetailService(
-    newOrder,
-    req.user?.UserId as number
-  );
+  const result = await addOrderDetailService(newOrder);
   if (result instanceof Error) return next(result);
   res.status(StatusCodes.CREATED).json(result);
 };
