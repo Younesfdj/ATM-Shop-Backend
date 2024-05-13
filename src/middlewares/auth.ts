@@ -4,7 +4,7 @@ import { prismaClient } from "../config/prisma";
 import { verifyToken } from "../utils/jwt";
 import { MyRequest } from "../types/Express";
 import { User } from "@prisma/client";
-
+import { InternalError } from "../errors/internal-error";
 /**
  * @description  Extract the token from the request
  * @param {Request} req - The request object
@@ -58,7 +58,7 @@ export const checkLogIn = async (
       req.user = user;
     } catch (e) {
       res.clearCookie("token");
-      return next(new Error("Internal Server Error"));
+      return next(new InternalError("Something went wrong", 1007, e));
     }
   }
   return next();
