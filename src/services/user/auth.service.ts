@@ -1,9 +1,9 @@
 import { $Enums } from "@prisma/client";
-import { prismaClient } from "../config/prisma";
-import { BadRequestError } from "../errors/bad-request";
-import { generateToken } from "../utils/jwt";
-import { comparePassword, hashPassword } from "../utils/password";
-import { InternalError } from "../errors/internal-error";
+import { prismaClient } from "../../config/prisma";
+import { BadRequestError } from "../../errors/bad-request";
+import { generateToken } from "../../utils/jwt";
+import { comparePassword, hashPassword } from "../../utils/password";
+import { InternalError } from "../../errors/internal-error";
 
 /**
  * @description  Register a user

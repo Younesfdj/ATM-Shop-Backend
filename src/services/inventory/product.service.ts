@@ -1,9 +1,9 @@
-import { InternalError } from "../errors/internal-error";
-import { prismaClient } from "../config/prisma";
-import { BadRequestError } from "../errors/bad-request";
-import { Product } from "../types/Product";
+import { InternalError } from "../../errors/internal-error";
+import { prismaClient } from "../../config/prisma";
+import { BadRequestError } from "../../errors/bad-request";
+import { Product } from "../../types/Product";
 import { getCategoryService } from "./category.service";
-import { log } from "../utils/logger";
+import { log } from "../../utils/logger";
 
 /**
  * @description  Get Product by Id

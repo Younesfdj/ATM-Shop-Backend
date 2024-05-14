@@ -1,9 +1,12 @@
-import { InternalError } from "../errors/internal-error";
-import { prismaClient } from "../config/prisma";
-import { BadRequestError } from "../errors/bad-request";
-import { OrderDetail } from "../types/OrderDetail";
-import { log } from "../utils/logger";
-import { getProductService, updateProductService } from "./product.service";
+import { InternalError } from "../../errors/internal-error";
+import { prismaClient } from "../../config/prisma";
+import { BadRequestError } from "../../errors/bad-request";
+import { OrderDetail } from "../../types/OrderDetail";
+import { log } from "../../utils/logger";
+import {
+  getProductService,
+  updateProductService,
+} from "../inventory/product.service";
 import { getOrderService } from "./order.service";
 
 /**

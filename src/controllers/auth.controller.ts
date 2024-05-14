@@ -3,7 +3,7 @@ import {
   registerAdminService,
   registerUserService,
   loginUserService,
-} from "../services/auth.service";
+} from "../services/user/auth.service";
 import { StatusCodes } from "http-status-codes";
 
 const registerUser = async (

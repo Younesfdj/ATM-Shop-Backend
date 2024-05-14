@@ -1,7 +1,7 @@
-import { prismaClient } from "../config/prisma";
-import { BadRequestError } from "../errors/bad-request";
-import { Category } from "../types/Category";
-import { InternalError } from "../errors/internal-error";
+import { prismaClient } from "../../config/prisma";
+import { BadRequestError } from "../../errors/bad-request";
+import { Category } from "../../types/Category";
+import { InternalError } from "../../errors/internal-error";
 /**
  * @description  Get category by Id
  * @param categoryId  - number

@@ -5,7 +5,7 @@ import {
   updateOrderService,
   deleteOrderService,
   addOrderService,
-} from "../services/order.service";
+} from "../services/orders/order.service";
 import { StatusCodes } from "http-status-codes";
 import { OrderSchema } from "../schema/OrderSchema";
 import { UnprocessedEntityError } from "../errors/unprocessed-entity";

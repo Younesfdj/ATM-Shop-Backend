@@ -5,7 +5,7 @@ import {
   updateProductService,
   deleteProductService,
   addProductService,
-} from "../services/product.service";
+} from "../services/inventory/product.service";
 import { StatusCodes } from "http-status-codes";
 import { ProductSchema } from "../schema/ProductSchema";
 import { UnprocessedEntityError } from "../errors/unprocessed-entity";

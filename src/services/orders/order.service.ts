@@ -1,8 +1,8 @@
-import { InternalError } from "../errors/internal-error";
-import { prismaClient } from "../config/prisma";
-import { BadRequestError } from "../errors/bad-request";
-import { Order } from "../types/Order";
-import { log } from "../utils/logger";
+import { InternalError } from "../../errors/internal-error";
+import { prismaClient } from "../../config/prisma";
+import { BadRequestError } from "../../errors/bad-request";
+import { Order } from "../../types/Order";
+import { log } from "../../utils/logger";
 
 /**
  * @description  Get Order by Id

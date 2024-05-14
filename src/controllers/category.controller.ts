@@ -5,7 +5,7 @@ import {
   updateCategoryService,
   deleteCategoryService,
   addCategoryService,
-} from "../services/category.service";
+} from "../services/inventory/category.service";
 import { StatusCodes } from "http-status-codes";
 import { log } from "../utils/logger";
 import { ProductSchema } from "../schema/ProductSchema";
