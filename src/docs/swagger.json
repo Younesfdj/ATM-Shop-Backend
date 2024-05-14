@@ -1282,6 +1282,350 @@
           }
         }
       }
+    },
+    "orders": {
+      "get": {
+        "tags": ["Orders"],
+        "description": "Get all orders",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "OrderId": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "OrderAmount": {
+                        "type": "number",
+                        "example": 100
+                      },
+                      "OrderStatus": {
+                        "type": "string",
+                        "example": "PENDING | DELIVERED | SHIPPING"
+                      },
+                      "OrderDate": {
+                        "type": "string",
+                        "example": "2021-08-01T00:00:00.000Z"
+                      },
+                      "OrderCity": {
+                        "type": "string",
+                        "example": "Istanbul"
+                      },
+                      "OrderEmail": {
+                        "type": "string",
+                        "example": "example@example.com"
+                      },
+                      "OrderPhone": {
+                        "type": "string",
+                        "example": "0552038238"
+                      },
+                      "OrderAddress": {
+                        "type": "string",
+                        "example": "Istanbul, Turkey"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Something went wrong"
+                    },
+                    "errorCode": {
+                      "type": "number",
+                      "example": "1007"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "order/id": {
+      "get": {
+        "tags": ["Orders"],
+        "description": "Get details of a specific order by ID.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "OrderId": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "OrderAmount": {
+                      "type": "number",
+                      "example": 100
+                    },
+                    "OrderStatus": {
+                      "type": "string",
+                      "example": "PENDING | DELIVERED | SHIPPING"
+                    },
+                    "OrderDate": {
+                      "type": "string",
+                      "example": "2021-08-01T00:00:00.000Z"
+                    },
+                    "OrderCity": {
+                      "type": "string",
+                      "example": "Istanbul"
+                    },
+                    "OrderEmail": {
+                      "type": "string",
+                      "example": "example@example.com"
+                    },
+                    "OrderPhone": {
+                      "type": "string",
+                      "example": "0552038238"
+                    },
+                    "OrderAddress": {
+                      "type": "string",
+                      "example": "Istanbul, Turkey"
+                    }
+                  }
+                }
+              }
+            }
+          },
+
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Order not found"
+                    },
+                    "errorCode": {
+                      "type": "number",
+                      "example": "2001"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Something went wrong"
+                    },
+                    "errorCode": {
+                      "type": "number",
+                      "example": "1007"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order/:id": {
+      "delete": {
+        "tags": ["Orders"],
+        "description": "Delete an order by ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Bearer token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "OrderId": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "OrderAmount": {
+                      "type": "number",
+                      "example": 100
+                    },
+                    "OrderStatus": {
+                      "type": "string",
+                      "example": "PENDING | DELIVERED | SHIPPING"
+                    },
+                    "OrderDate": {
+                      "type": "string",
+                      "example": "2021-08-01T00:00:00.000Z"
+                    },
+                    "OrderCity": {
+                      "type": "string",
+                      "example": "Istanbul"
+                    },
+                    "OrderEmail": {
+                      "type": "string",
+                      "example": "example@example.com"
+                    },
+                    "OrderPhone": {
+                      "type": "string",
+                      "example": "0552038238"
+                    },
+                    "OrderAddress": {
+                      "type": "string",
+                      "example": "Istanbul, Turkey"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid order ID"
+                    },
+                    "errorCode": {
+                      "type": "number",
+                      "example": "1006"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Order not found"
+                    },
+                    "errorCode": {
+                      "type": "number",
+                      "example": "3001"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Something went wrong"
+                    },
+                    "errorCode": {
+                      "type": "number",
+                      "example": "1007"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
