@@ -763,9 +763,33 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "message": {
+                    "ProductId": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "ProductName": {
                       "type": "string",
-                      "example": "Product deleted successfully"
+                      "example": "Product 1"
+                    },
+                    "ProductPrice": {
+                      "type": "number",
+                      "example": 100
+                    },
+                    "ProductDesc": {
+                      "type": "string",
+                      "example": "Product 1 description"
+                    },
+                    "ProductSKU": {
+                      "type": "string",
+                      "example": "SKU123"
+                    },
+                    "ProductCategoryId": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "ProductImagePath": {
+                      "type": "string",
+                      "example": "http://example.com/image.jpg"
                     }
                   }
                 }
@@ -837,7 +861,7 @@
     },
     "/categories": {
       "get": {
-        "tags": ["Category"],
+        "tags": ["Categories"],
         "description": "Get all categories",
         "responses": {
           "200": {
@@ -888,7 +912,7 @@
     },
     "/category/id": {
       "get": {
-        "tags": ["Category"],
+        "tags": ["Categories"],
         "description": "Get details of a specific category by ID.",
         "parameters": [
           {
@@ -966,7 +990,7 @@
     },
     "/category": {
       "post": {
-        "tags": ["Category"],
+        "tags": ["Categories"],
         "description": "Add a new category",
         "security": [
           {
@@ -1065,7 +1089,7 @@
     },
     "/category/{id}": {
       "put": {
-        "tags": ["Category"],
+        "tags": ["Categories"],
         "description": "Update a category by ID",
         "security": [
           {
@@ -1177,7 +1201,7 @@
     },
     "/category/:id": {
       "delete": {
-        "tags": ["Category"],
+        "tags": ["Categories"],
         "description": "Delete a category by ID",
         "security": [
           {
@@ -1211,9 +1235,13 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "message": {
+                    "CategoryId": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "CategoryName": {
                       "type": "string",
-                      "example": "Category deleted successfully"
+                      "example": "Category 1"
                     }
                   }
                 }
