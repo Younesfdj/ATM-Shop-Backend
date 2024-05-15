@@ -1311,7 +1311,7 @@
         }
       }
     },
-    "orders": {
+    "/orders": {
       "get": {
         "tags": ["Orders"],
         "description": "Get all orders",
@@ -1402,7 +1402,7 @@
         }
       }
     },
-    "order": {
+    "/order": {
       "post": {
         "tags": ["Orders"],
         "description": "Add a new order",
@@ -1569,7 +1569,7 @@
         }
       }
     },
-    "make-order": {
+    "/make-order": {
       "post": {
         "tags": ["Orders"],
         "description": "Add a complete order",
@@ -1761,7 +1761,7 @@
         }
       }
     },
-    "order/id": {
+    "/order/id": {
       "get": {
         "tags": ["Orders"],
         "description": "Get details of a specific order by ID.",
@@ -2014,7 +2014,7 @@
         }
       }
     },
-    "orders-detail": {
+    "/orders-detail": {
       "get": {
         "tags": ["Order Details"],
         "description": "Get all orders details",
@@ -2089,7 +2089,7 @@
         }
       }
     },
-    "order-details/id": {
+    "/order-details/id": {
       "get": {
         "tags": ["Order Details"],
         "description": "Get details of a specific order detail by ID.",
@@ -2190,7 +2190,7 @@
         }
       }
     },
-    "order-detail": {
+    "/order-detail": {
       "post": {
         "tags": ["Order Details"],
         "description": "Add a new order detail",
@@ -2325,7 +2325,7 @@
         }
       }
     },
-    "order-details/:id": {
+    "/order-details/:id": {
       "delete": {
         "tags": ["Order Details"],
         "description": "Delete a specific order detail by ID.",
