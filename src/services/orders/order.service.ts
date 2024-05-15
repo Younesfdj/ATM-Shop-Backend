@@ -100,7 +100,7 @@ export const updateOrderService = async (OrderId: number, newOrder: Order) => {
 /**
  * @description  Delete an Order
  * @param OrderId  - number
- * @returns  Error | BadRequestError | Order
+ * @returns  Error | BadRequestError | OrderI
  */
 
 export const deleteOrderService = async (OrderId: number) => {
@@ -132,7 +132,11 @@ export const deleteOrderService = async (OrderId: number) => {
     return new InternalError("Something went wrong", 1007, error);
   }
 };
-
+/**
+ * @description  Make an Order
+ * @param order  - OrderI
+ * @returns  Error | BadRequestError | OrderI
+ */
 export const makeOrderService = async (order: OrderI) => {
   try {
     const orderResult = await addOrderService(
@@ -143,16 +147,23 @@ export const makeOrderService = async (order: OrderI) => {
       return orderResult;
     }
 
-    order.orderProducts.map(async (orderProduct) => {
+    for (let index = 0; index < order.orderProducts.length; index++) {
+      const element = order.orderProducts[index];
       const orderDetailResult = await addOrderDetailService({
         DetailOrderId: orderResult.OrderId,
-        DetailProductId: orderProduct.DetailProductId,
-        DetailQuantity: orderProduct.DetailQuantity,
+        DetailProductId: element.DetailProductId,
+        DetailQuantity: element.DetailQuantity,
       });
       if (orderDetailResult instanceof Error) {
         return orderDetailResult;
       }
-    });
+    }
+
+    return {
+      orderInfo: orderResult,
+      orderUserId: order.orderUserId,
+      orderProducts: order.orderProducts,
+    };
   } catch (error: any) {
     return new InternalError("Something went wrong", 1007, error);
   }
