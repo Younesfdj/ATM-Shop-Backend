@@ -5,15 +5,26 @@ import {
   addOrder,
   updateOrder,
   deleteOrder,
+  makeCompleteOrder,
 } from "../controllers/order.controller";
 import { checkLogIn, isAdmin, isLoggedIn } from "../middlewares/auth";
-import { OrderValidator } from "../validators/OrderValidator";
+import {
+  OrderValidator,
+  makeCompleteOrderValidator,
+} from "../validators/OrderValidator";
 
 const orderRouter = Router();
 
 orderRouter.get("/orders", checkLogIn, isLoggedIn, isAdmin, getOrders);
 orderRouter.get("/order/:id", checkLogIn, isLoggedIn, isAdmin, getOrder);
 orderRouter.post("/order", checkLogIn, isLoggedIn, OrderValidator, addOrder);
+orderRouter.post(
+  "/make-order",
+  checkLogIn,
+  isLoggedIn,
+  makeCompleteOrderValidator,
+  makeCompleteOrder
+);
 orderRouter.put(
   "/order/:id",
   checkLogIn,

@@ -5,6 +5,7 @@ import {
   updateOrderService,
   deleteOrderService,
   addOrderService,
+  makeOrderService,
 } from "../services/orders/order.service";
 import { StatusCodes } from "http-status-codes";
 import { OrderSchema } from "../schema/OrderSchema";
@@ -77,4 +78,19 @@ export const deleteOrder = async (
   const result = await deleteOrderService(parseInt(id));
   if (result instanceof Error) return next(result);
   res.status(StatusCodes.OK).json({ message: "Order deleted successfully" });
+};
+
+export const makeCompleteOrder = async (
+  req: MyRequest<null | User>,
+  res: Response,
+  next: NextFunction
+) => {
+  const newOrder = req.body;
+  const result = await makeOrderService({
+    orderInfo: newOrder,
+    orderUserId: req.user?.UserId as number,
+    orderProducts: newOrder.orderProducts,
+  });
+  if (result instanceof Error) return next(result);
+  res.status(StatusCodes.CREATED).json(result);
 };

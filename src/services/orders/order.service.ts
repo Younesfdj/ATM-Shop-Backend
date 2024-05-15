@@ -1,7 +1,8 @@
 import { InternalError } from "../../errors/internal-error";
 import { prismaClient } from "../../config/prisma";
 import { BadRequestError } from "../../errors/bad-request";
-import { Order } from "../../types/Order";
+import { Order, OrderI } from "../../types/Order";
+import { addOrderDetailService } from "./orderDetail.service";
 import { log } from "../../utils/logger";
 
 /**
@@ -127,6 +128,31 @@ export const deleteOrderService = async (OrderId: number) => {
       OrderAdress: order.OrderAdress,
       OrderStatus: order.OrderStatus,
     };
+  } catch (error: any) {
+    return new InternalError("Something went wrong", 1007, error);
+  }
+};
+
+export const makeOrderService = async (order: OrderI) => {
+  try {
+    const orderResult = await addOrderService(
+      order.orderInfo,
+      order.orderUserId as number
+    );
+    if (orderResult instanceof Error) {
+      return orderResult;
+    }
+
+    order.orderProducts.map(async (orderProduct) => {
+      const orderDetailResult = await addOrderDetailService({
+        DetailOrderId: orderResult.OrderId,
+        DetailProductId: orderProduct.DetailProductId,
+        DetailQuantity: orderProduct.DetailQuantity,
+      });
+      if (orderDetailResult instanceof Error) {
+        return orderDetailResult;
+      }
+    });
   } catch (error: any) {
     return new InternalError("Something went wrong", 1007, error);
   }

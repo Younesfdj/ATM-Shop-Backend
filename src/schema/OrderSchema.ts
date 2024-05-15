@@ -7,5 +7,6 @@ export const OrderSchema = z.object({
   OrderDate: z.date().optional(),
   OrderCity: z.string().min(1),
   OrderAdress: z.string().min(1),
+  OrderUserId: z.number().optional(),
   OrderStatus: z.enum(["PENDING", "SHIPPING", "DELIVERED"]).default("PENDING"),
 });
