@@ -6,10 +6,10 @@ import usersSeed from "./users.seed";
 import orderDetail from "./orderDetails.seed";
 
 const seedFunctions = [
+  usersSeed,
   categorySeed,
   productSeed,
   ordersSeed,
-  usersSeed,
   orderDetail,
 ];
 

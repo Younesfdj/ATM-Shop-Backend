@@ -1,4 +1,4 @@
-import { OrderStatus } from "@prisma/client";
+import { OrderStatus, Role } from "@prisma/client";
 
 export const productCategories = [
   { CategoryName: "Electronics" },
@@ -9,16 +9,22 @@ export const productCategories = [
   { CategoryName: "Automotive" },
 ];
 
-export const products = [
+export const users = [
   {
-    ProductName: "Laptop hp",
-    ProductDesc: "hp14s core i5 11th gen 8gb ram 512gb ssd",
-    ProductPrice: 100000,
-    ProductSKU: "HP14SLAPTOP",
-    ProductCategoryId: 1,
-    ProductImagePath: "https://hello.com",
-    ProductQuantity: 5,
+    UserName: "younes",
+    UserEmail: "younes@gmail.com",
+    UserPhone: "0552038398",
+    UserPassword: "testtest",
   },
+  {
+    UserName: "younesadmine",
+    UserEmail: "younes2@gmail.com",
+    UserPhone: "0552038398",
+    UserPassword: "testtest",
+    UserRole: Role.ADMIN,
+  },
+];
+export const products = [
   {
     ProductName: "Smartphone Samsung Galaxy S21",
     ProductDesc:
@@ -98,4 +104,3 @@ export const orders = [
   },
 ];
 export const orderDetails = [];
-export const users = [];
