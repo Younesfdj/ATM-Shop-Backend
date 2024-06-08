@@ -87,7 +87,7 @@ export const makeCompleteOrder = async (
 ) => {
   const newOrder = req.body;
   const result = await makeOrderService({
-    orderInfo: newOrder,
+    orderInfo: newOrder.orderInfo,
     orderUserId: req.user?.UserId as number,
     orderProducts: newOrder.orderProducts,
   });

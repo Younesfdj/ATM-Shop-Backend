@@ -1726,33 +1726,54 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "OrderAmount": {
+                  "orderInfo": {
+                    "type": "object",
+                    "properties": {
+                      "OrderAmount": {
+                        "type": "number",
+                        "example": 100
+                      },
+                      "OrderDate": {
+                        "type": "string",
+                        "example": "2021-08-01T00:00:00.000Z"
+                      },
+                      "OrderCity": {
+                        "type": "string",
+                        "example": "Istanbul"
+                      },
+                      "OrderEmail": {
+                        "type": "string",
+                        "example": "example@example.com"
+                      },
+                      "OrderPhone": {
+                        "type": "string",
+                        "example": "0552038238"
+                      },
+                      "OrderAddress": {
+                        "type": "string",
+                        "example": "Istanbul, Turkey"
+                      }
+                    }
+                  },
+                  "orderUserId": {
                     "type": "number",
-                    "example": 100
+                    "example": 1
                   },
-                  "OrderStatus": {
-                    "type": "string",
-                    "example": "PENDING | DELIVERED | SHIPPING"
-                  },
-                  "OrderDate": {
-                    "type": "string",
-                    "example": "2021-08-01T00:00:00.000Z"
-                  },
-                  "OrderCity": {
-                    "type": "string",
-                    "example": "Istanbul"
-                  },
-                  "OrderEmail": {
-                    "type": "string",
-                    "example": "example@example.com"
-                  },
-                  "OrderPhone": {
-                    "type": "string",
-                    "example": "0552038238"
-                  },
-                  "OrderAddress": {
-                    "type": "string",
-                    "example": "Istanbul, Turkey"
+                  "orderProducts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "DetailProductId": {
+                          "type": "number",
+                          "example": 1
+                        },
+                        "DetailQuantity": {
+                          "type": "number",
+                          "example": 1
+                        }
+                      }
+                    }
                   }
                 }
               }
