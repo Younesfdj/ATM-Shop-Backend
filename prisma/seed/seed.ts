@@ -4,7 +4,7 @@ import productSeed from "./products.seed";
 import ordersSeed from "./orders.seed";
 import usersSeed from "./users.seed";
 import orderDetail from "./orderDetails.seed";
-
+import { log } from "../../src/utils/logger";
 const seedFunctions = [
   usersSeed,
   categorySeed,
@@ -23,7 +23,7 @@ async function main() {
 
 main()
   .then(() => {
-    console.log("Seed data inserted successfully");
+    log.info("Seed data inserted successfully");
     prisma.$disconnect();
   })
   .catch((error) => {
