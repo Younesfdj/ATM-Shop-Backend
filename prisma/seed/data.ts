@@ -1,34 +1,33 @@
 import { OrderStatus, Role } from "@prisma/client";
 
 export const productCategories = [
-  { CategoryName: "Electronics", CategoryId: 1 },
-  { CategoryName: "Clothing", CategoryId: 2 },
-  { CategoryName: "Home & Kitchen", CategoryId: 3 },
-  { CategoryName: "Beauty & Personal Care", CategoryId: 4 },
-  { CategoryName: "Sports & Outdoors", CategoryId: 5 },
-  { CategoryName: "Automotive", CategoryId: 6 },
+  { CategoryName: "Electronics" },
+  { CategoryName: "Clothing" },
+  { CategoryName: "Home & Kitchen" },
+  { CategoryName: "Beauty & Personal Care" },
+  { CategoryName: "Sports & Outdoors" },
+  { CategoryName: "Automotive" },
 ];
 
 export const users = [
   {
-    UserId: 1,
     UserName: "younes",
     UserEmail: "younes@gmail.com",
-    UserPhone: "0552038398",
-    UserPassword: "testtest",
+    UserPhone: "0552666666",
+    UserPassword:
+      "$2a$10$FwRGa4LQgpb5po5/ro1F6.TOGbKL27rmdvq0sZco0U8qqnvKx4mLa",
   },
   {
-    UserId: 2,
     UserName: "younesadmine",
     UserEmail: "younes2@gmail.com",
-    UserPhone: "0552038398",
-    UserPassword: "testtest",
+    UserPhone: "0552666666",
+    UserPassword:
+      "$2a$10$FwRGa4LQgpb5po5/ro1F6.TOGbKL27rmdvq0sZco0U8qqnvKx4mLa",
     UserRole: Role.ADMIN,
   },
 ];
 export const products = [
   {
-    ProductId: 1,
     ProductName: "Smartphone Samsung Galaxy S21",
     ProductDesc:
       "Samsung Galaxy S21 with 128GB storage, 12GB RAM, and 6.2-inch display",
@@ -39,7 +38,6 @@ export const products = [
     ProductQuantity: 5,
   },
   {
-    ProductId: 2,
     ProductName: "Men's Leather Jacket",
     ProductDesc:
       "Genuine leather jacket for men, available in various sizes and colors",
@@ -50,7 +48,6 @@ export const products = [
     ProductQuantity: 5,
   },
   {
-    ProductId: 3,
     ProductName: "Instant Pot Pressure Cooker",
     ProductDesc:
       "Multi-function electric pressure cooker with various cooking modes and programmable timer",
@@ -61,56 +58,5 @@ export const products = [
     ProductQuantity: 5,
   },
 ];
-export const orders = [
-  {
-    OrderId: 1,
-    OrderAmount: 2000,
-    OrderPhone: "1234567891",
-    OrderEmail: "test@gmail.com",
-    OrderCity: "isser",
-    OrderAdress: "isser ville",
-    OrderStatus: OrderStatus.PENDING,
-    OrderUserId: 1,
-  },
-  {
-    OrderId: 2,
-    OrderAmount: 1500,
-    OrderPhone: "9876543210",
-    OrderEmail: "customer1@example.com",
-    OrderCity: "New York",
-    OrderAdress: "123 Main Street",
-    OrderStatus: OrderStatus.PENDING,
-    OrderUserId: 2,
-  },
-  {
-    OrderId: 3,
-    OrderAmount: 800,
-    OrderPhone: "5555555555",
-    OrderEmail: "customer2@example.com",
-    OrderCity: "Los Angeles",
-    OrderAdress: "456 Oak Avenue",
-    OrderStatus: OrderStatus.PENDING,
-    OrderUserId: 1,
-  },
-  {
-    OrderId: 4,
-    OrderAmount: 1200,
-    OrderPhone: "4444444444",
-    OrderEmail: "customer4@example.com",
-    OrderCity: "Paris",
-    OrderAdress: "987 Maple Avenue",
-    OrderStatus: OrderStatus.PENDING,
-    OrderUserId: 2,
-  },
-  {
-    OrderId: 5,
-    OrderAmount: 3000,
-    OrderPhone: "1112223333",
-    OrderEmail: "customer3@example.com",
-    OrderCity: "London",
-    OrderAdress: "789 Elm Street",
-    OrderStatus: OrderStatus.PENDING,
-    OrderUserId: 2,
-  },
-];
+export const orders = [];
 export const orderDetails = [];
