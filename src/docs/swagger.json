@@ -1369,7 +1369,7 @@
                         "type": "string",
                         "example": "0552038238"
                       },
-                      "OrderAddress": {
+                      "OrderAdress": {
                         "type": "string",
                         "example": "Istanbul, Turkey"
                       }
@@ -1458,7 +1458,7 @@
                       "type": "string",
                       "example": "0552038238"
                     },
-                    "OrderAddress": {
+                    "OrderAdress": {
                       "type": "string",
                       "example": "Istanbul, Turkey"
                     }
@@ -1558,7 +1558,7 @@
                     "type": "string",
                     "example": "0552038238"
                   },
-                  "OrderAddress": {
+                  "OrderAdress": {
                     "type": "string",
                     "example": "Istanbul, Turkey"
                   }
@@ -1628,7 +1628,7 @@
                           "type": "string",
                           "example": "0552038238"
                         },
-                        "OrderAddress": {
+                        "OrderAdress": {
                           "type": "string",
                           "example": "Istanbul, Turkey"
                         }
@@ -1733,10 +1733,6 @@
                         "type": "number",
                         "example": 100
                       },
-                      "OrderDate": {
-                        "type": "string",
-                        "example": "2021-08-01T00:00:00.000Z"
-                      },
                       "OrderCity": {
                         "type": "string",
                         "example": "Istanbul"
@@ -1749,7 +1745,7 @@
                         "type": "string",
                         "example": "0552038238"
                       },
-                      "OrderAddress": {
+                      "OrderAdress": {
                         "type": "string",
                         "example": "Istanbul, Turkey"
                       }
@@ -1846,7 +1842,7 @@
                       "type": "string",
                       "example": "0552038238"
                     },
-                    "OrderAddress": {
+                    "OrderAdress": {
                       "type": "string",
                       "example": "Istanbul, Turkey"
                     }
@@ -1963,7 +1959,7 @@
                       "type": "string",
                       "example": "0552038238"
                     },
-                    "OrderAddress": {
+                    "OrderAdress": {
                       "type": "string",
                       "example": "Istanbul, Turkey"
                     }
